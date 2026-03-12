@@ -1,0 +1,31 @@
+kind = "web"
+previewPath = "/"
+title = "Luxury Fashion Store"
+version = "1.0.0"
+id = "artifacts/luxury-store"
+router = "path"
+
+[[integratedSkills]]
+name = "react-vite"
+version = "1.0.0"
+
+[[services]]
+localPort = 20451
+name = "web"
+paths = ["/"]
+
+[services.development]
+run = "pnpm --filter @workspace/luxury-store run dev"
+
+[services.env]
+PORT = "20451"
+BASE_PATH = "/"
+
+[services.production]
+build = ["pnpm", "--filter", "@workspace/luxury-store", "run", "build"]
+publicDir = "artifacts/luxury-store/dist/public"
+serve = "static"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"

@@ -1,0 +1,24 @@
+packages:
+  "framer-motion": "For premium, smooth page transitions and interactive animations matching a luxury aesthetic"
+  "embla-carousel-react": "For the product image gallery carousel"
+  "clsx": "For merging tailwind classes efficiently"
+  "tailwind-merge": "For merging tailwind classes efficiently"
+  "lucide-react": "For elegant, minimal icons"
+  "react-hook-form": "For robust checkout and form state management"
+  "@hookform/resolvers": "For integrating Zod validation with react-hook-form"
+
+images:
+  - path: "artifacts/luxury-store/public/images/hero-bg.png"
+    description: "Dark, moody, luxury high-fashion editorial photography, subtle dramatic lighting, elegant silhouette, deep blacks and charcoal with subtle gold accents"
+    aspect_ratio: "16:9"
+  - path: "artifacts/luxury-store/public/images/lookbook-1.png"
+    description: "Luxury fashion accessory, close up, dark aesthetic, premium lighting, gold details, editorial style"
+    aspect_ratio: "3:4"
+  - path: "artifacts/luxury-store/public/images/lookbook-2.png"
+    description: "Elegant haute couture garment details, premium fabric texture, dark cinematic lighting, high-end fashion"
+    aspect_ratio: "3:4"
+
+notes:
+  - Using generated hooks from @workspace/api-client-react
+  - Cart state is driven by a sessionId stored in localStorage
+  - Theme is deeply dark/charcoal with gold accents for a luxury brand feel
