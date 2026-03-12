@@ -8,7 +8,9 @@ import Products from "@/pages/Products";
 import ProductDetail from "@/pages/ProductDetail";
 import Checkout from "@/pages/Checkout";
 import OrderConfirmation from "@/pages/OrderConfirmation";
+import Account from "@/pages/Account";
 import NotFound from "@/pages/not-found";
+import { AccountProvider } from "@/contexts/AccountContext";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -28,6 +30,8 @@ function Router() {
         <Route path="/products/:id" component={ProductDetail} />
         <Route path="/checkout" component={Checkout} />
         <Route path="/order/:id" component={OrderConfirmation} />
+        <Route path="/account/*" component={Account} />
+        <Route path="/account" component={Account} />
         <Route component={NotFound} />
       </Switch>
     </Layout>
@@ -38,10 +42,12 @@ function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <TooltipProvider>
-        <WouterRouter base={import.meta.env.BASE_URL.replace(/\/$/, "")}>
-          <Router />
-        </WouterRouter>
-        <Toaster />
+        <AccountProvider>
+          <WouterRouter base={import.meta.env.BASE_URL.replace(/\/$/, "")}>
+            <Router />
+          </WouterRouter>
+          <Toaster />
+        </AccountProvider>
       </TooltipProvider>
     </QueryClientProvider>
   );

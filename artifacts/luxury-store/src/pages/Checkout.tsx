@@ -38,6 +38,20 @@ export default function Checkout() {
         queryClient.invalidateQueries({ queryKey: ["/api/cart"] });
         // Generate new session ID for next time implicitly
         localStorage.removeItem("luxury_store_session_id");
+
+        // Save order to history
+        const historyStr = localStorage.getItem("luxe_order_history");
+        const history = historyStr ? JSON.parse(historyStr) : [];
+        history.push({
+          id: order.id,
+          date: new Date().toISOString(),
+          total: order.total,
+          status: order.status,
+          itemCount: order.items.length
+        });
+        localStorage.setItem("luxe_order_history", JSON.stringify(history));
+        localStorage.setItem("luxe_last_order_id", order.id.toString());
+
         setLocation(`/order/${order.id}`);
       },
       onError: () => {

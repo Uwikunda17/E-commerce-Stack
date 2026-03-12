@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "wouter";
-import { ShoppingBag, Search, Menu, X } from "lucide-react";
+import { ShoppingBag, Search, Menu, X, User } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { useGetCart } from "@workspace/api-client-react";
@@ -13,7 +13,7 @@ interface NavbarProps {
 export function Navbar({ onOpenCart }: NavbarProps) {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [location] = useLocation();
+  const [location, setLocation] = useLocation();
   const sessionId = useCartSession();
 
   const { data: cart } = useGetCart(
@@ -43,7 +43,7 @@ export function Navbar({ onOpenCart }: NavbarProps) {
     <>
       <header
         className={cn(
-          "fixed top-0 left-0 right-0 z-40 transition-all duration-500 ease-in-out border-b border-transparent",
+          "fixed left-0 right-0 z-40 transition-all duration-500 ease-in-out border-b border-transparent top-9",
           isScrolled || !isHome
             ? "bg-background/95 backdrop-blur-md border-border py-4"
             : "bg-transparent py-6"
@@ -82,9 +82,15 @@ export function Navbar({ onOpenCart }: NavbarProps) {
             </Link>
 
             {/* Right Actions */}
-            <div className="flex items-center space-x-4 md:space-x-6">
+            <div className="flex items-center space-x-2 md:space-x-4">
               <button className="p-2 text-foreground/80 hover:text-primary transition-colors">
                 <Search className="w-5 h-5" />
+              </button>
+              <button 
+                onClick={() => setLocation('/account')}
+                className="p-2 text-foreground/80 hover:text-primary transition-colors hidden sm:block"
+              >
+                <User className="w-5 h-5" />
               </button>
               <button
                 onClick={onOpenCart}
@@ -112,13 +118,13 @@ export function Navbar({ onOpenCart }: NavbarProps) {
             transition={{ type: "tween", duration: 0.4 }}
             className="fixed inset-0 z-50 bg-background flex flex-col"
           >
-            <div className="flex items-center justify-between p-6 border-b border-border">
+            <div className="flex items-center justify-between p-6 border-b border-border mt-9">
               <span className="font-display text-xl tracking-[0.2em]">LUXE</span>
               <button onClick={() => setIsMobileMenuOpen(false)}>
                 <X className="w-6 h-6" />
               </button>
             </div>
-            <nav className="flex flex-col p-6 space-y-6">
+            <nav className="flex flex-col p-6 space-y-6 flex-1 overflow-y-auto">
               {navLinks.map((link) => (
                 <Link
                   key={link.name}
@@ -129,6 +135,17 @@ export function Navbar({ onOpenCart }: NavbarProps) {
                   {link.name}
                 </Link>
               ))}
+              
+              <div className="h-px bg-border my-4" />
+              
+              <Link
+                href="/account"
+                onClick={() => setIsMobileMenuOpen(false)}
+                className="text-xl tracking-widest uppercase font-display flex items-center gap-3 text-primary"
+              >
+                <User className="w-5 h-5" />
+                My Account
+              </Link>
             </nav>
           </motion.div>
         )}

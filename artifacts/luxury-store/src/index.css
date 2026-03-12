@@ -51,7 +51,7 @@
   --popover-foreground: 0 0% 98%;
   
   /* Gold Accent */
-  --primary: 43 65% 53%;
+  --primary: 42 72% 58%;
   --primary-foreground: 0 0% 4%;
   
   /* Subtle Charcoal */
@@ -73,6 +73,10 @@
 }
 
 @layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
   body {
     @apply bg-background text-foreground antialiased font-sans selection:bg-primary selection:text-primary-foreground;
   }
@@ -102,5 +106,14 @@
   .scrollbar-hide {
     -ms-overflow-style: none;
     scrollbar-width: none;
+  }
+
+  @keyframes marquee {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+  }
+
+  .animate-marquee {
+    animation: marquee 20s linear infinite;
   }
 }
